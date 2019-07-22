@@ -5,24 +5,51 @@ import Form from './Form';
 class Body extends Component {
     state = {
         list: [],
+        valueInput: '',
+        id: 0
     }
 
-    addList = (list, inputValue) => {
-        let listsCopy = list.slice();
+    addList = () => {
+        let listsCopy = this.state.list.slice();
+        let index = this.state.id + 1;
         
-        listsCopy.push({name: inputValue, done: false});
+        listsCopy.push({name: this.state.valueInput, done: false, id: index});
 
-        this.setState({list: listsCopy, valueInput: ''});
+        this.setState({list: listsCopy, valueInput: '', id: index});
     }
+    
+    changeInput = (value) => {
+        this.setState({
+            valueInput: value
+        });
+    }
+
+    changeStatusList = () => {
+        this.setState()
+        console.log(this.state);
+        console.log(this);
+        // console.log('some');
+    }
+    
+    
     render() {
+        console.log(this.state);
         return(
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <Form onButtonClick={this.addList.bind(this, this.state.list)}/>
+                        <Form 
+                            valueInput = {this.state.valueInput}
+                            onButtonClick = {this.addList}
+                            onChangeInput = {this.changeInput}
+                        />
                     </div>
                     <div className="col-12">
-                        <List list={this.state.list} />
+                        <List 
+                            list={this.state.list}
+                            idInput={this.state.id}
+                            changeStatusList = {this.changeStatusList}
+                        />
                     </div>
                 </div>
             </div>
