@@ -5,12 +5,20 @@ import Body from './components/Body';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends Component {
+  state = {
+    count: 0
+  }
+
+  setCount = (count) => {
+    this.setState({count: count});
+  }
+
   render() {
-    console.log(this.state);
+    
     return(
       <div className="App">
-        <Header />
-        <Body />
+        <Header countList={this.state.count} />
+        <Body setCount={this.setCount} />
       </div>
     );
   }

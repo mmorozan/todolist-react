@@ -11,9 +11,10 @@ class Body extends Component {
     addList = (value) => {
         let listsCopy = this.state.list.slice();
         let index = this.state.id + 1;
+        const { setCount } = this.props;
         
         listsCopy.push({name: value, done: false, id: index});
-
+        setCount(listsCopy.length);
         this.setState({list: listsCopy, id: index});
     }
     
@@ -34,7 +35,6 @@ class Body extends Component {
     
     
     render() {
-        console.log(this.state);
         return(
             <div className="container">
                 <div className="row">
