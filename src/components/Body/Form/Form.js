@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 
 class Form extends Component {
-    
-    render() {
-        const {onButtonClick, onChangeInput} = this.props;
+    state = {
+        valueInput: ''
+    }
 
+    onClickHandler = () => {
+        const {onButtonClick} = this.props;
+        const {valueInput} = this.state;
+        
+        onButtonClick(valueInput);
+        this.setState({valueInput: ''});
+    }
+
+    render() {
         return (
+            
             <label htmlFor="" className="d-flex">
-                <input className='form-control' id='todoInput' type='text' value={this.props.valueInput} onChange={(e) => {onChangeInput(e.target.value)}} />
-                <button className='btn btn-primary' onClick={onButtonClick}>ADD</button>
+                <input className='form-control' type='text' value={this.state.valueInput} onChange={(e) => {this.setState({ valueInput: e.target.value})}} />
+                <button className='btn btn-primary' onClick={this.onClickHandler}>ADD</button>
             </label>
         )
     }

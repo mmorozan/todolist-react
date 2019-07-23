@@ -5,17 +5,16 @@ import Form from './Form';
 class Body extends Component {
     state = {
         list: [],
-        valueInput: '',
         id: 0
     }
 
-    addList = () => {
+    addList = (value) => {
         let listsCopy = this.state.list.slice();
         let index = this.state.id + 1;
         
-        listsCopy.push({name: this.state.valueInput, done: false, id: index});
+        listsCopy.push({name: value, done: false, id: index});
 
-        this.setState({list: listsCopy, valueInput: '', id: index});
+        this.setState({list: listsCopy, id: index});
     }
     
     changeInput = (value) => {
@@ -24,11 +23,13 @@ class Body extends Component {
         });
     }
 
-    changeStatusList = () => {
-        this.setState()
-        console.log(this.state);
-        console.log(this);
-        // console.log('some');
+    changeStatusListItem = (id) => {
+        const newList = this.state.list.slice()
+        const item = newList.find((item)=>item.id === id);
+        if(item){
+            item.done = !item.done;
+            this.setState({list:newList})
+        }
     }
     
     
@@ -39,7 +40,6 @@ class Body extends Component {
                 <div className="row">
                     <div className="col-12">
                         <Form 
-                            valueInput = {this.state.valueInput}
                             onButtonClick = {this.addList}
                             onChangeInput = {this.changeInput}
                         />
@@ -48,7 +48,7 @@ class Body extends Component {
                         <List 
                             list={this.state.list}
                             idInput={this.state.id}
-                            changeStatusList = {this.changeStatusList}
+                            changeStatusListItem = {this.changeStatusListItem}
                         />
                     </div>
                 </div>
